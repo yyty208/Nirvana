@@ -1,20 +1,20 @@
 package com.gaohua.nirvana.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
+
+
 
 /**
- * gaohua 于 15/8/26创建.
- * 邮箱:aksdqezgjj@gmail.com
  * 类描述:bitmap工具类
  */
 public class BitmapUtils {
+
     /**
-     *
-     * @author 高骅
-     * @Description 压缩bitmapz
-     * @return Bitmap
-     * @date 2014-10-19 上午12:25:02
+     * 压缩bitmap
      */
     public static Bitmap scaleImg(Bitmap bm, int newWidth, int newHeight) {
         // 获得图片的宽高
@@ -34,5 +34,15 @@ public class BitmapUtils {
         return Bitmap.createScaledBitmap(bm, newWidth, newHeight, false);
     }
 
+    /**
+     * drawable 转为 Bitmap
+     */
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
 }
